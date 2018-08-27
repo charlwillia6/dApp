@@ -119,7 +119,7 @@ describe('QuickDeployment', () => {
     expect(overlay).to.have.length(0);
   });
 
-  it('should disable past dates in expiration date picker', () => {
+  it('should disable past dates in expiration date picker, but allow current date', () => {
     const pastDate = moment()
       .subtract(1, 'days')
       .format('MMMM D, YYYY');
@@ -144,7 +144,43 @@ describe('QuickDeployment', () => {
         .find(`td[title="${currentDate}"]`)
         .find('.ant-calendar-date')
         .prop('aria-disabled')
+    ).to.equal(false);
+
+    expect(
+      quickDeployment
+        .find('span#expirationTimeStamp')
+        .find(`td[title="${futureDate}"]`)
+        .find('.ant-calendar-date')
+        .prop('aria-disabled')
+    ).to.equal(false);
+  });
+
+  it('should disable past time on current date in expiration date picker', () => {
+    const pastTime = moment()
+      .subtract(60, 'minutes')
+      .format('HH:mm:ss');
+    const futureTime = moment()
+      .add(60, 'minutes')
+      .format('HH:mm:ss');
+    const currentDate = moment().format('HH:mm:ss');
+
+    quickDeployment.find('span#expirationTimeStamp input').simulate('click');
+
+    expect(
+      quickDeployment
+        .find('span#expirationTimeStamp')
+        .find(`td[title="${pastDate}"]`)
+        .find('.ant-calendar-date')
+        .prop('aria-disabled')
     ).to.equal(true);
+
+    expect(
+      quickDeployment
+        .find('span#expirationTimeStamp')
+        .find(`td[title="${currentDate}"]`)
+        .find('.ant-calendar-date')
+        .prop('aria-disabled')
+    ).to.equal(false);
 
     expect(
       quickDeployment
