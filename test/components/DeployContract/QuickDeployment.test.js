@@ -162,14 +162,14 @@ describe('QuickDeployment', () => {
     const futureTime = moment()
       .add(60, 'minutes')
       .format('HH:mm:ss');
-    const currentDate = moment().format('HH:mm:ss');
+    const currentTime = moment().format('HH:mm:ss');
 
     quickDeployment.find('span#expirationTimeStamp input').simulate('click');
 
     expect(
       quickDeployment
         .find('span#expirationTimeStamp')
-        .find(`td[title="${pastDate}"]`)
+        .find(`td[title="${pastTimee}"]`)
         .find('.ant-calendar-date')
         .prop('aria-disabled')
     ).to.equal(true);
@@ -177,7 +177,7 @@ describe('QuickDeployment', () => {
     expect(
       quickDeployment
         .find('span#expirationTimeStamp')
-        .find(`td[title="${currentDate}"]`)
+        .find(`td[title="${currentTime}"]`)
         .find('.ant-calendar-date')
         .prop('aria-disabled')
     ).to.equal(false);
@@ -185,7 +185,7 @@ describe('QuickDeployment', () => {
     expect(
       quickDeployment
         .find('span#expirationTimeStamp')
-        .find(`td[title="${futureDate}"]`)
+        .find(`td[title="${futureTime}"]`)
         .find('.ant-calendar-date')
         .prop('aria-disabled')
     ).to.equal(false);
