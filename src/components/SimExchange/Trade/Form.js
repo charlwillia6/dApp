@@ -128,7 +128,7 @@ class BuyForm extends Component {
                 }}
                 onChange={selectedDate => {
                   const now = moment();
-                  return (selectedDate.isSame(now, 'date') ? selectedDate.set(now.toObject()).add(60, 'm') : selectedDate);
+                  return (selectedDate && selectedDate.isSameOrBefore(now) ? selectedDate.set(now.toObject()).add(60, 'm') : selectedDate);
                 }}
                 disabled={this.props.simExchange.contract === null}
                 showToday={false}
