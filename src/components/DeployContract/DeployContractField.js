@@ -366,7 +366,6 @@ const fieldSettingsByName = {
         }}
         onChange={selectedDate => {
           const now = moment();
-
           return (selectedDate && selectedDate.isSameOrBefore(now) ? selectedDate.set(now.toObject()).add(60, 'm') : selectedDate);
         }}
         showToday={false}
